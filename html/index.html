@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Threading Chat</title>
+        <link rel="stylesheet" type="text/css" href="app.css">
+        <script src="jquery-2.0.3.min.js"></script>
+        <script src="app.js"></script>
+    <!--style type="text/css">
+        body { margin: 0; font-size: 2em; background-color: white; }
+        h1 { text-align: center; color: red; }
+        h1 + h1 { color: green; }
+        h1:last-child { color: blue; }
+        #quit { background-color: gray; color: white; font-weight: bold; display: block; text-align: right; }
+    </style>
+    <script type="text/javascript">
+        var counter = 0;
+        function toggleElement()
+        {
+        var elements = document.getElementsByTagName('h1');
+        for (var i = 0; i < elements.length; ++i)
+            elements[i].style.display = (counter % elements.length) == i ? '' : 'none';
+        counter++;
+        setTimeout('toggleElement()', 1000);
+        }
+        window.onload = function()
+        {
+        document.getElementById("quit").onmousedown = function()
+        {
+            Qt.quit();
+        };
+        toggleElement();
+        }
+    </script-->
+    </head>
+    <body>
+    <!--a id="quit">X</a>
+    <h1>Hello</h1>
+    <h1>HTML5</h1>
+    <h1>World</h1-->
+    <h3 id="">Welcome to</h3>
+            <h1>Threading Chat</h1>
+            <div id="form-alert"> </div>
+            <form>
+                    <fieldset>
+                    <legend id="sign-in-legend">Sign in</legend>
+                    <table><tbody>
+                            <tr><td class="form-field-desc">username:</td>
+                                    <td><input type="text" id="sign-in-username"/></td>
+                            <tr><td class="form-field-desc">password:</td>
+                                    <td><input type="password" id="sign-in-password"/></td></tr>
+                            <tr><td></td>
+                                    <td><button class="pull-right" id="sign-in-submit">
+                                            Submit</button></td></tr>
+                    </tbody></table>
+                    </fieldset>
+            </form>
+            <h4 id="toggler-header">Don't have an account yet?</h4>
+            <form id="register-form">
+                    <fieldset>
+                    <legend>Register now!</legend>
+                    <table><tbody>
+                            <tr><td class="form-field-desc">username:</td>
+                                    <td><input type="text" id="register-username"/></td></tr>
+                            <tr><td class="form-field-desc">password:</td>
+                                    <td><input type="password" id="register-password"/></td></tr>
+                            <tr><td class="form-field-desc">repeat password:</td>
+                                    <td><input type="password" id="register-repeat"/></td></tr>
+                            <tr><td></td>
+                                    <td><button class="pull-right" id="register-submit">Submit</button></td></tr>
+                    </tbody></table>
+                    </fieldset>
+            </form>
+    </body>
+</html>
