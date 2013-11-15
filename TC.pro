@@ -13,9 +13,15 @@ DEPLOYMENTFOLDERS = folder_01
 # CONFIG += mobility
 # MOBILITY +=
 
+LIBS += -lgloox
+
 # The .cpp file which was generated for your project. Feel free to hack it.
-SOURCES += main.cpp tc.cpp
-HEADERS += tc.h
+SOURCES += *.cpp \
+    XmppTest/xmpptest.cpp
+HEADERS += *.h \
+    QWrappers/qmessage_details.h \
+    QWrappers/qmessage_handler.h \
+    XmppTest/xmpptest.h
 
 # Please do not modify the following two lines. Required for deployment.
 include(html5applicationviewer/html5applicationviewer.pri)
