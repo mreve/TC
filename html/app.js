@@ -37,7 +37,7 @@ $(document).ready(function() {
         if (!user_in_base($("#sign-in-username").val(), $("#sign-in-password").val())) {
             fill_alert("Wrong username or password", "sign-in", false);
         } else {
-            TChat.loadMain(window.screen.width-500, 20, 500, 700);
+            TChat.loadMain(window.screen.width-400, 20, 400, 700);
             TChat.setUserAndPassword($("#sign-in-username").val(), $("#sign-in-password").val());
             /*
             newWindow.addEventListener(Ti.CLOSED, function() {

@@ -55,6 +55,10 @@ body {
 
 }
 
+#partial {
+        margin: 10px;
+}
+
 .tab-description {
         text-align: center;
         font-size: 80%;
@@ -74,6 +78,8 @@ body {
         border-top-left-radius: 5px;
 }
 
+
+
 .tab-upper-active {
         margin-top: 3px;
         border-bottom-color: #ffffff;
@@ -92,4 +98,32 @@ body {
         border-left-color: #ffffff;
         border-width: 3px;
         cursor: default;
+}
+
+#home-user-icon {
+        width: 70px;
+        height: 70px;
+        float: right;
+        cursor: pointer;
+}
+
+#home-accounts {
+        font-size: 12px;
+}
+
+.icon {
+        width: 20px;
+        height: 20px;
+        vertical-align: middle;
+        margin: 5px;
+}
+
+.icon-togglable {
+        height: 20px;
+        width: auto;
+}
+
+.icon-tab {
+        margin-top: 10px;
+        width: 40px;
 }
