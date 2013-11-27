@@ -17,11 +17,16 @@ LIBS += -lgloox
 
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += *.cpp \
-    XmppTest/xmpptest.cpp
+    XmppTest/xmpptest.cpp \
+    UserComponents/user_options.cpp \
+    UserComponents/xmpp_account.cpp
 HEADERS += *.h \
     QWrappers/qmessage_details.h \
     QWrappers/qmessage_handler.h \
-    XmppTest/xmpptest.h
+    XmppTest/xmpptest.h \
+    user_store.h \
+    UserComponents/user_options.h \
+    UserComponents/xmpp_account.h
 
 # Please do not modify the following two lines. Required for deployment.
 include(html5applicationviewer/html5applicationviewer.pri)
