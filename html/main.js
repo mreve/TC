@@ -1,7 +1,16 @@
 var username;
 var rightTabsOpened = 2;
-var accounts = ["anna.dymek.75@facebook.com", "mreve@users.v-lo.krakow.pl", "z1088891@student.tcs.uj.edu.pl"];
+var accounts = ["anna@kitten.com", "me@krakow.pl", "asdf@student.asdf.pl"];
 var enabled = [true, false, true];
+var contacts = [["dawid", "meg", "kaicik"], [], []];
+
+function toggle_visibility(id) {
+    var e = document.getElementById(id);
+    if(e.style.display == 'block')
+        e.style.display = 'none';
+    else
+        e.style.display = 'block';
+}
 
 function disable_tabs() {
     $("#tab-home").toggleClass("tab-upper-active", false);
@@ -45,19 +54,29 @@ function able_tab(id) {
             for (var i = 0; i < accounts.length; i++) {               
                 var input = '<tr>';
                     input += '<td>';
-                        if (is_account_active(i))
-                            input += '<img class="icon" src="img/icon-active.png"/>';
+                        if (accounts[i].length > 30)
+                            input += accounts[i].substring(0, 27) + '...';
                         else
-                            input += '<img class="icon" src="img/icon-inactive.png"/>';
+                            input += accounts[i];
                     input += '</td>';
                     input += '<td>';
-                        input += accounts[i];
-                    input += '</td>';
-                    input += '<td>';
-                        if (is_account_enabled(i))
-                            input += '<input type="checkbox" onclick="checkbox_state_changed(id);" class="account-checkbox" id="ae-' + i + '"/>ON';
-                        else
-                            input += '<input type="checkbox" onclick="checkbox_state_changed(id);" class="account-checkbox" id="ae-' + i + '"/>OFF';
+                        if (is_account_enabled(i)) {
+                            input += '<input type="checkbox" class="account-checkbox" id="ae-' + i + '"/></td>';
+                            input += '<td id="ae-desc-' + i + '">' + 'ON' + '</td>';
+                        }
+                        else {
+                            input += '<input type="checkbox" class="account-checkbox" id="ae-' + i + '"/></td>';
+                            input += '<td id="ae-desc-' + i + '">' + 'OFF' + '</td>';
+                        }
+                    input += '<td id="ae-icon-' + i + '">';
+                        if (is_account_enabled(i)) {
+                            if (is_account_active(i))
+                                input += '<img class="icon" src="img/icon-active.png"/>';
+                            else
+                                input += '<img class="icon" src="img/icon-inactive.png"/>';
+                        } else {
+                            input += '<img class="icon" src="img/icon-empty.png"/>';
+                        }
                     input += '</td>';
                 input += '</tr>';
                 $("#home-accounts").append(input);
@@ -69,22 +88,42 @@ function able_tab(id) {
                 if (new_account) {
                     accounts.push(new_account);
                     enabled.push(false);
+                    contacts.push([]);
                     var i = accounts.length-1;
                     var input = '<tr>';
-                        input += '<td><img class="icon" src="img/icon-inactive.png"/></td>';
-                        input += '<td>' + accounts[i] + '</td>';
-                        input += '<td><input type="checkbox" onclick="checkbox_state_changed(id);" class="account-checkbox" id="ae-' + i + '"/>OFF</td>';
+                        input += '<td>';
+                            if (accounts[i].length > 25)
+                                input += accounts[i].substring(0, 22) + '...';
+                            else
+                                input += accounts[i];
+                        input += '</td>';
+                        input += '<td><input type="checkbox" class="account-checkbox" id="ae-' + i + '"/></td>';
+                        input += '<td id="ae-desc-' + i + '">' + 'OFF' + '</td>';
+                        input += '<td id="ae-icon-' + i + '"><img class="icon" src="img/icon-empty.png"/></td>';
                     input += '</tr>';
                     $("#home-accounts").append(input);
                     $("#ae-" + i).attr("checked", is_account_enabled(i));
                 }
+                $("#tab-home").click();
             });
 
             $(".account-checkbox").click(function() {
-                var len = $(this).id;
-                var id = parseInt(len.slice(3, len.length-1));
-                enabled[id] = !enabled[id];
-            });
+                var len = $(this).attr("id");
+                var id = parseInt(len.substring(3, len.length));
+                enabled[id] = !enabled[id]; // TODO: this will be different probably
+                if (is_account_enabled(id)) {
+                    $("#ae-desc-" + id).html("ON");
+                    // TODO: try to connect here!
+                    if (is_account_active(id))
+                        $("#ae-icon-" + id).html('<img class="icon" src="img/icon-active.png"/>');
+                    else
+                        $("#ae-icon-" + id).html('<img class="icon" src="img/icon-inactive.png"/>');
+                }
+                else {
+                    $("#ae-desc-" + id).html("OFF");
+                    $("#ae-icon-" + id).html('<img class="icon" src="img/icon-empty.png"/>');
+                }
+            });  
 
         });
     } else if (id.indexOf("contacts") != -1) {
@@ -95,11 +134,54 @@ function able_tab(id) {
             /*	Here there would come all the jQuery selectors for tab CONTACTS	*/
             $("#tab-contacts-icon").attr("src", "img/icon-tab-contacts-dark.png");
 
-            $("#add-accounts").click(function() {
-                disable_tabs();
-                able_tab("tab-home");
-                return false;
-            });
+            var any_active_accounts = false;
+            for (var i = 0; i < accounts.length; i++)
+                if (is_account_active(i)) {
+                    any_active_accounts = true;
+                    break;
+                }
+            if (any_active_accounts) {
+                $("#no-active-accounts").css("display", "none");
+                $("#some-active-accounts").css("display", "block");
+
+                for (var i = 0; i < accounts.length; i++) {
+                    var frame = '<fieldset id="account-contacts-' + i + '">';
+                        frame += '<legend>';
+                            if (accounts[i].length > 25)
+                                frame += accounts[i].substring(0, 22) + '...';
+                            else
+                                frame += accounts[i];
+                        frame += '</legend>';
+                        frame += '<table id="ac-' + i + '" style="width: ' + (document.width-150) + 'px;"><tbody>';
+                        frame += '<tr><td style="float: right; width: 100%;"></td></tr>';
+                        for (var j = 0; j < contacts[i].length; j++) {
+                            frame += '<tr>';
+                                frame += '<td>' + contacts[i][j] + '</td>';
+                            frame += '</tr>';
+                        }
+                        frame += '</tbody></table>';
+                    frame += '</fieldset>';
+                    $("#list-of-accounts").append(frame);
+                    var visibility = '';
+                        if (is_account_enabled(i))
+                            visibility = "block";
+                        else
+                            visibility = "none";
+                    $("#account-contacts-" + i).css("display", visibility);
+                }
+
+
+
+            } else {
+                $("#no-active-accounts").css("display", "block");
+                $("#some-active-accounts").css("display", "none");
+
+                $("#add-accounts").click(function() {
+                    disable_tabs();
+                    able_tab("tab-home");
+                    return false;
+                });
+            }
         });
     } else {
         $("#" + id).toggleClass("tab-right-active", true);
