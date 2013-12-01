@@ -19,14 +19,16 @@ LIBS += -lgloox
 SOURCES += *.cpp \
     XmppTest/xmpptest.cpp \
     UserComponents/user_options.cpp \
-    UserComponents/xmpp_account.cpp
+    UserComponents/xmpp_account.cpp \
+    Database/database_manager.cpp
 HEADERS += *.h \
     QWrappers/qmessage_details.h \
     QWrappers/qmessage_handler.h \
     XmppTest/xmpptest.h \
     user_store.h \
     UserComponents/user_options.h \
-    UserComponents/xmpp_account.h
+    UserComponents/xmpp_account.h \
+    Database/database_manager.h
 
 # Please do not modify the following two lines. Required for deployment.
 include(html5applicationviewer/html5applicationviewer.pri)
