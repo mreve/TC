@@ -199,7 +199,6 @@ function able_tab(id) {
 $(document).ready(function() {
     username = UserStore.getUsername();
 
-
     able_tab("tab-contacts");
 
     $("#main-space").css("min-height", (rightTabsOpened+1) * 55);
