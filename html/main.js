@@ -115,7 +115,8 @@ function able_tab(id) {
 }
 
 $(document).ready(function() {
-    username = TChat.getUser();
+    username = UserStore.getUsername();
+
 
     able_tab("tab-contacts");
 

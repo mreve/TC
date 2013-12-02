@@ -28,7 +28,8 @@ HEADERS += *.h \
     user_store.h \
     UserComponents/user_options.h \
     UserComponents/xmpp_account.h \
-    Database/database_manager.h
+    Database/database_manager.h \
+    threading_chat.h
 
 # Please do not modify the following two lines. Required for deployment.
 include(html5applicationviewer/html5applicationviewer.pri)

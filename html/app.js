@@ -7,7 +7,7 @@ function toggle_visibility(id) {
         e.style.display = 'block';
 }
 
-var users = [{ un:'mreve', pwd:''}, { un:'kotek', pwd:'kotek'}, { un:'dawid', pwd:'kochany'}];
+//var users = [{ un:'mreve', pwd:''}, { un:'kotek', pwd:'kotek'}, { un:'dawid', pwd:'kochany'}];
 
 function user_in_base(usrn, pswd) {
     for (var i = 0; i<users.length; i++)
@@ -34,11 +34,11 @@ function fill_alert(msg, fieldGroupName, omitUn) {
 
 $(document).ready(function() {
     $("#sign-in-submit").click(function() {
-        if (!user_in_base($("#sign-in-username").val(), $("#sign-in-password").val())) {
+        if (!UserStore.login($("#sign-in-username").val(), $("#sign-in-password").val())) {
             fill_alert("Wrong username or password", "sign-in", false);
         } else {
+            fill_alert("Great", "sign-in", false);
             TChat.loadMain(window.screen.width-400, 20, 400, 700);
-            TChat.setUserAndPassword($("#sign-in-username").val(), $("#sign-in-password").val());
             /*
             newWindow.addEventListener(Ti.CLOSED, function() {
                 Ti.API.set('logged_user', {username: null, password: null});
@@ -49,15 +49,11 @@ $(document).ready(function() {
         return false;
     });
     $("#register-submit").click(function() {
-        if (username_taken($("#register-username").val())) {
-            fill_alert("Username already taken", "register", false);
-        } else if ($("#register-password").val() != $("#register-repeat").val()) {
+        if ($("#register-password").val() != $("#register-repeat").val()) {
             fill_alert("Incorrect password", "register", true);
+        } else if (!UserStore.registerUser($("#register-username").val(), $("#register-password").val())) {
+            fill_alert("Username already taken", "register", false);
         } else {
-            users.push({
-                un: $("#register-username").val(),
-                pwd: $("#register-password").val()
-            });
             fill_alert("Registration completed", "register", false);
             toggle_visibility("register-form");
         }

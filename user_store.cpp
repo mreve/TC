@@ -7,25 +7,37 @@ UserStore::~UserStore(){
     delete options;
 }
 
-void UserStore::login(const QString& username, const QString& password) {
+bool UserStore::login(const QString& username, const QString& password) {
     /*
      *TODO: not yet implemented
      */
     this->username = username;
     this->logged = true;
-}
-
-
-bool UserStore::getUsername(QString &result) {
-    if (logged) {
-        result = this->username;
-    }
-    return logged;
-}
-
-bool UserStore::getOptions(UserOptions &result) {
-    result = this->options;
     return true;
+}
+
+/*!
+ * \brief UserStore::registerUser
+ * \param username
+ * \param password
+ * \return false if username already exists, true if registration was succesful
+ */
+bool UserStore::registerUser(const QString &username, const QString &password) {
+    /*
+     *TODO: not yet implemented
+     */
+    return true;
+}
+
+QString UserStore::getUsername() {
+    if (logged) {
+        return this->username;
+    }
+    return "";
+}
+
+UserOptions *UserStore::getOptions() {
+    return this->options;
 }
 
 QVector<XmppAccount*> UserStore::getXmppAccounts() {
